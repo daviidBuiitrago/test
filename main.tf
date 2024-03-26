@@ -1,5 +1,5 @@
 # Importación del módulo Terraform para la infraestructura de Azure
-module "azure_infrastructure" {
+  module "azure_infrastructure" {
   source = "./modules/azure_infrastructure"
 
   # Variables de entrada al módulo
