@@ -1,0 +1,32 @@
+trigger:
+- main
+ 
+pool:
+  vmImage: 'ubuntu-latest'
+ 
+steps:
+- task: TerraformToolInstaller@0
+  displayName: 'Install Terraform'
+ 
+- task: TerraformCLI@0
+  displayName: 'Initialize Terraform'
+  inputs:
+    command: 'init'
+    workingDirectory: '$(Build.SourcesDirectory)'
+ 
+- task: TerraformCLI@0
+  displayName: 'Apply Terraform'
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(Build.SourcesDirectory)'
+    environmentServiceName: 'yourAzureServiceConnection'
+    commandOptions: '-auto-approve'
+ 
+# Para destruir los recursos, este paso debe ser ejecutado manualmente o como parte de un pipeline separado.
+# - task: TerraformCLI@0
+#   displayName: 'Destroy Terraform Managed Infrastructure'
+#   inputs:
+#     command: 'destroy'
+#     workingDirectory: '$(Build.SourcesDirectory)'
+#     environmentServiceName: 'yourAzureServiceConnection'
+#     commandOptions: '-auto-approve'
